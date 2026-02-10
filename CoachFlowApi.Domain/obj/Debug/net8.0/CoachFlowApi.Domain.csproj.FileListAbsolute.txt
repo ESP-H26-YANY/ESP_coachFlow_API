@@ -22,3 +22,15 @@ C:/Users/sk-y/Dropbox/Note_Code/Web/MyApi/CoachFlowApi/CoachFlowApi.Domain/obj/D
 /home/sk-y/Dropbox/Note_Code/Web/MyApi/CoachFlowApi/CoachFlowApi.Domain/obj/Debug/net8.0/refint/CoachFlowApi.Domain.dll
 /home/sk-y/Dropbox/Note_Code/Web/MyApi/CoachFlowApi/CoachFlowApi.Domain/obj/Debug/net8.0/CoachFlowApi.Domain.pdb
 /home/sk-y/Dropbox/Note_Code/Web/MyApi/CoachFlowApi/CoachFlowApi.Domain/obj/Debug/net8.0/ref/CoachFlowApi.Domain.dll
+C:\Users\sk-y\Dropbox\Note_Code\Web\MyApi\CoachFlowApi\CoachFlowApi.Domain\bin\Debug\net8.0\CoachFlowApi.Domain.deps.json
+C:\Users\sk-y\Dropbox\Note_Code\Web\MyApi\CoachFlowApi\CoachFlowApi.Domain\bin\Debug\net8.0\CoachFlowApi.Domain.dll
+C:\Users\sk-y\Dropbox\Note_Code\Web\MyApi\CoachFlowApi\CoachFlowApi.Domain\bin\Debug\net8.0\CoachFlowApi.Domain.pdb
+C:\Users\sk-y\Dropbox\Note_Code\Web\MyApi\CoachFlowApi\CoachFlowApi.Domain\obj\Debug\net8.0\CoachFlowApi.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sk-y\Dropbox\Note_Code\Web\MyApi\CoachFlowApi\CoachFlowApi.Domain\obj\Debug\net8.0\CoachFlowApi.Domain.AssemblyInfoInputs.cache
+C:\Users\sk-y\Dropbox\Note_Code\Web\MyApi\CoachFlowApi\CoachFlowApi.Domain\obj\Debug\net8.0\CoachFlowApi.Domain.AssemblyInfo.cs
+C:\Users\sk-y\Dropbox\Note_Code\Web\MyApi\CoachFlowApi\CoachFlowApi.Domain\obj\Debug\net8.0\CoachFlowApi.Domain.csproj.CoreCompileInputs.cache
+C:\Users\sk-y\Dropbox\Note_Code\Web\MyApi\CoachFlowApi\CoachFlowApi.Domain\obj\Debug\net8.0\CoachFlowApi.Domain.sourcelink.json
+C:\Users\sk-y\Dropbox\Note_Code\Web\MyApi\CoachFlowApi\CoachFlowApi.Domain\obj\Debug\net8.0\CoachFlowApi.Domain.dll
+C:\Users\sk-y\Dropbox\Note_Code\Web\MyApi\CoachFlowApi\CoachFlowApi.Domain\obj\Debug\net8.0\refint\CoachFlowApi.Domain.dll
+C:\Users\sk-y\Dropbox\Note_Code\Web\MyApi\CoachFlowApi\CoachFlowApi.Domain\obj\Debug\net8.0\CoachFlowApi.Domain.pdb
+C:\Users\sk-y\Dropbox\Note_Code\Web\MyApi\CoachFlowApi\CoachFlowApi.Domain\obj\Debug\net8.0\ref\CoachFlowApi.Domain.dll
