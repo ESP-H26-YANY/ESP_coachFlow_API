@@ -1,0 +1,6 @@
+@CoachFlowApi.Api_HostAddress = http://localhost:5144
+
+GET {{CoachFlowApi.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

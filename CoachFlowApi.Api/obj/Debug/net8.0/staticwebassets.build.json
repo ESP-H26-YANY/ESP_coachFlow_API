@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "EZh1KK8tAvrIXXQvf+Ui5YR5qnRfWMbx7zCzts8RmiE=",
+  "Source": "CoachFlowApi.Api",
+  "BasePath": "_content/CoachFlowApi.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
