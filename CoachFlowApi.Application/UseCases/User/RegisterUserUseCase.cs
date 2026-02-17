@@ -40,7 +40,8 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         var user = new UserEntity(
             dto.Email, 
             passwordHash, 
-            dto.Name
+            dto.Name,
+            dto.Role
         );
 
         var savedUser = await _userRepository.Add(user);

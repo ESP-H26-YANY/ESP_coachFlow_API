@@ -577,32 +577,39 @@
     ]
   },
   "packageFolders": {
-    "/home/sk-y/.nuget/packages/": {}
+    "C:\\Users\\sk-y\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/sk-y/Dropbox/Note_Code/Web/MyApi/CoachFlowApi/CoachFlowApi.Application/CoachFlowApi.Application.csproj",
+      "projectUniqueName": "C:\\Users\\sk-y\\Dropbox\\Note_Code\\Web\\MyApi\\CoachFlowApi\\CoachFlowApi.Application\\CoachFlowApi.Application.csproj",
       "projectName": "CoachFlowApi.Application",
-      "projectPath": "/home/sk-y/Dropbox/Note_Code/Web/MyApi/CoachFlowApi/CoachFlowApi.Application/CoachFlowApi.Application.csproj",
-      "packagesPath": "/home/sk-y/.nuget/packages/",
-      "outputPath": "/home/sk-y/Dropbox/Note_Code/Web/MyApi/CoachFlowApi/CoachFlowApi.Application/obj/",
+      "projectPath": "C:\\Users\\sk-y\\Dropbox\\Note_Code\\Web\\MyApi\\CoachFlowApi\\CoachFlowApi.Application\\CoachFlowApi.Application.csproj",
+      "packagesPath": "C:\\Users\\sk-y\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sk-y\\Dropbox\\Note_Code\\Web\\MyApi\\CoachFlowApi\\CoachFlowApi.Application\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/sk-y/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\sk-y\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/sk-y/Dropbox/Note_Code/Web/MyApi/CoachFlowApi/CoachFlowApi.Domain/CoachFlowApi.Domain.csproj": {
-              "projectPath": "/home/sk-y/Dropbox/Note_Code/Web/MyApi/CoachFlowApi/CoachFlowApi.Domain/CoachFlowApi.Domain.csproj"
+            "C:\\Users\\sk-y\\Dropbox\\Note_Code\\Web\\MyApi\\CoachFlowApi\\CoachFlowApi.Domain\\CoachFlowApi.Domain.csproj": {
+              "projectPath": "C:\\Users\\sk-y\\Dropbox\\Note_Code\\Web\\MyApi\\CoachFlowApi\\CoachFlowApi.Domain\\CoachFlowApi.Domain.csproj"
             }
           }
         }
@@ -616,7 +623,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -659,7 +667,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.418/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

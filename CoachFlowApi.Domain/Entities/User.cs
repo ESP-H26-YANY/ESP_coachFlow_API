@@ -14,13 +14,13 @@ public class User
     public ICollection<Appointment> Appointments { get; set; }
     public ICollection<Purchase> Purchases { get; set; }
 
-    public User(string email, string password, string name)
+    public User(string email, string password, string name, string role )
     {
         Id = Guid.NewGuid();
         Email = email;
         Password = password;
         Name = name;
-        Role = "user"; 
+        Role = role; 
         Wallet = 0;
         CreatedAt = DateTime.UtcNow; 
         

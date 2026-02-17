@@ -20,5 +20,11 @@ public class RegisterUserValidator : AbstractValidator<RegisterUserDto>
             .NotEmpty()
             .MinimumLength(6)
             .MaximumLength(100);
+        
+        RuleFor(x => x.Role)
+            .NotEmpty()
+            .Must(role => role == "user" || role == "coach")
+            .WithMessage("Role must be either 'user' or 'coach'.");
+
     }
 }
