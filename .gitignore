@@ -1,0 +1,55 @@
+# --- Build Artifacts ---
+[Bb]in/
+[Oo]bj/
+out/
+dist/
+build/
+*.exe
+*.dll
+*.pdb
+*.suo
+
+# --- IDE & Editors ---
+# Visual Studio
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+
+# IntelliJ / Rider / Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# --- Dependencies ---
+node_modules/
+packages/
+!.nuget/packages/
+vendor/
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Environment & Secrets ---
+.env
+.env.*
+!.env.example
+*.secrets.json
+appsettings.Development.json
+
+# --- Logs & Temp ---
+*.log
+logs/
+temp/
+tmp/
