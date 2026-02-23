@@ -47,6 +47,7 @@ desktop.ini
 !.env.example
 *.secrets.json
 appsettings.Development.json
+appsettings.json
 
 # --- Logs & Temp ---
 *.log

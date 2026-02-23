@@ -1,25 +1,20 @@
 # Guide de Déploiement - CoachFlow API
 
-Ce document détaille les étapes pour déployer l'API CoachFlow sur un serveur Linux (Ubuntu/Debian) avec Nginx comme reverse proxy et MariaDB comme base de données.
+Ce document détaille les étapes pour déployer l'API CoachFlow sur un serveur Linux (Ubuntu/Debian), MariaDB comme base de données.
 
 ---
 
-## 1. Prérequis sur le Serveur
 
-Connectez-vous à votre serveur via SSH.
-
-### 1.1 Installation des dépendances système
+### 1.Installation des dépendances système
 Mise à jour des paquets et installation des outils de base :
 
 ```bash
 sudo apt update
-sudo apt install -y wget curl gnupg2 lsb-release ubuntu-keyring git
-```
-# Installer .NET 8.0 SDK
-```
-wget [https://dot.net/v1/dotnet-install.sh](https://dot.net/v1/dotnet-install.sh) -O dotnet-install.sh
-chmod +x ./dotnet-install.sh
-./dotnet-install.sh --version 8.0.0
+sudo apt install -y wget apt-transport-https
+wget https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo apt update
+sudo apt install -y dotnet-sdk-8.0
 ```
 
 # Ajouter .NET au PATH pour la session actuelle et les futures
@@ -47,31 +42,22 @@ sudo systemctl status mariadb
 sudo mysql -u root
 ```
 ```sql
--- Création de la base
 CREATE DATABASE coachflowdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- Création de l'utilisateur (remplacez '1' par un mot de passe fort en production)
-CREATE USER 'coachflow'@'localhost' IDENTIFIED BY '1';
-
--- Attribution des droits
-GRANT ALL PRIVILEGES ON coachflowdb.* TO 'coachflow'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
 
 ```
 # Préparer le Projet
 ```bash
-# Se placer dans le dossier du projet
-cd /path/to/CoachFlow_Api
+cd /ESP_coachFlow_Front
 
-# Restaurer les dépendances
 dotnet restore
+dotnet build
 
-# Vérifier que le projet compile
-dotnet build --no-restore
+dotnet publish CoachFlowApi.Api -c Release -o publish
 ```
 
 # Mettre à jour appsettings.json et migration
+- Ajoutez le fichier appsettings.json dans CoachFlowApi/CoachFlowApi.Api et mettez vos informations dedans.
+
 ```json
 {
   "Jwt": {
