@@ -11,7 +11,6 @@ public class User
     public DateTime CreatedAt { get; set; }
 
 
-    public ICollection<Appointment> Appointments { get; set; }
     public ICollection<Purchase> Purchases { get; set; }
     public virtual ICollection<SavedGuide> SavedGuides { get; set; } = new List<SavedGuide>();
 
@@ -25,13 +24,11 @@ public class User
         Wallet = 0;
         CreatedAt = DateTime.UtcNow; 
         
-        Appointments = new List<Appointment>();
         Purchases = new List<Purchase>();
     }
 
     public User() 
     {
-        Appointments = new List<Appointment>();
         Purchases = new List<Purchase>();
     }
 }

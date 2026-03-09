@@ -34,11 +34,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.CreatedAt)
             .IsRequired();
             
-        builder.HasMany(u => u.Appointments)
-            .WithOne(a => a.User)
-            .HasForeignKey(a => a.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
-
         builder.HasMany(u => u.Purchases)
             .WithOne(p => p.User)
             .HasForeignKey(p => p.UserId)

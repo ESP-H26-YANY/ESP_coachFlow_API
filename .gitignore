@@ -56,4 +56,9 @@ temp/
 tmp/
 
 
-CoachFlowApi/CoachFlowApi.Api/uploads
+# Ignorer les fichiers uploadés par les utilisateurs
+CoachFlowApi.Api/wwwroot/uploads/
+*.pdf
+*.jpg
+*.jpeg
+*.png

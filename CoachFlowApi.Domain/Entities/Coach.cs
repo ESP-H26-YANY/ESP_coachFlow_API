@@ -8,7 +8,6 @@ public class Coach
 
     public virtual User User { get; set; }
     public virtual ICollection<Guide> Guides { get; set; }
-    public virtual ICollection<Appointment> Appointments { get; set; }
 
     public Coach(Guid userId, string specialization)
     {
@@ -17,12 +16,10 @@ public class Coach
         Specialization = specialization;
         
         Guides = new List<Guide>();
-        Appointments = new List<Appointment>();
     }
 
     public Coach() 
     {
         Guides = new List<Guide>();
-        Appointments = new List<Appointment>();
     }
 }

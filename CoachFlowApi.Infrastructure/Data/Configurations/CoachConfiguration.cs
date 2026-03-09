@@ -25,9 +25,5 @@ public class CoachConfiguration : IEntityTypeConfiguration<Coach>
             .HasForeignKey(g => g.CoachId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany(c => c.Appointments)
-            .WithOne(a => a.Coach)
-            .HasForeignKey(a => a.CoachId)
-            .OnDelete(DeleteBehavior.Cascade);
     }
 }
