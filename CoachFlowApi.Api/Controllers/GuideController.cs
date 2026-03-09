@@ -14,6 +14,7 @@ public class GuideController : ControllerBase
     private readonly IDeleteGuideUseCase _deleteUseCase;
     private readonly IGetAllGuidesUseCase _getAllUseCase;
     private readonly IGetGuidesByUserUseCase _getByUserUseCase;
+    private readonly IGetGuideByIdUseCase _getByIdUseCase;
     private readonly IWebHostEnvironment _environment;
 
     public GuideController(
@@ -21,12 +22,14 @@ public class GuideController : ControllerBase
         IDeleteGuideUseCase deleteUseCase, 
         IGetAllGuidesUseCase getAllUseCase,
         IGetGuidesByUserUseCase getByUserUseCase,
+        IGetGuideByIdUseCase getByIdUseCase,
         IWebHostEnvironment environment)
     {
         _createUseCase = createUseCase;
         _deleteUseCase = deleteUseCase;
         _getAllUseCase = getAllUseCase;
         _getByUserUseCase = getByUserUseCase;
+        _getByIdUseCase = getByIdUseCase;
         _environment = environment;
     }
 
@@ -44,6 +47,22 @@ public class GuideController : ControllerBase
             return BadRequest(new { message = ex.Message });
         }
     }
+
+    [HttpGet("{id}")]
+    [Authorize] 
+public async Task<ActionResult<GuideDto>> GetById(Guid id)
+{
+    try
+    {
+        var guide = await _getByIdUseCase.Execute(id);
+        return Ok(guide);
+    }
+    catch (Exception ex)
+    {
+        // On retourne 404 Not Found si le guide n'existe pas
+        return NotFound(new { message = ex.Message });
+    }
+}
 
     [HttpGet("user/{userId}")]
     [Authorize]
