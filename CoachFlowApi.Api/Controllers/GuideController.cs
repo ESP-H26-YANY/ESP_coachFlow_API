@@ -15,14 +15,16 @@ public class GuideController : ControllerBase
     private readonly IGetAllGuidesUseCase _getAllUseCase;
     private readonly IGetGuidesByUserUseCase _getByUserUseCase;
     private readonly IGetGuideByIdUseCase _getByIdUseCase;
+    private readonly IUpdateGuideUseCase _updateUseCase;
     private readonly IWebHostEnvironment _environment;
 
     public GuideController(
-        ICreateGuideUseCase createUseCase, 
-        IDeleteGuideUseCase deleteUseCase, 
+        ICreateGuideUseCase createUseCase,
+        IDeleteGuideUseCase deleteUseCase,
         IGetAllGuidesUseCase getAllUseCase,
         IGetGuidesByUserUseCase getByUserUseCase,
         IGetGuideByIdUseCase getByIdUseCase,
+        IUpdateGuideUseCase updateUseCase,
         IWebHostEnvironment environment)
     {
         _createUseCase = createUseCase;
@@ -30,11 +32,12 @@ public class GuideController : ControllerBase
         _getAllUseCase = getAllUseCase;
         _getByUserUseCase = getByUserUseCase;
         _getByIdUseCase = getByIdUseCase;
+        _updateUseCase = updateUseCase;
         _environment = environment;
     }
 
     [HttpGet]
-    [Authorize] 
+    [Authorize]
     public async Task<ActionResult<IEnumerable<GuideDto>>> GetAll()
     {
         try
@@ -49,48 +52,47 @@ public class GuideController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize] 
-public async Task<ActionResult<GuideDto>> GetById(Guid id)
-{
-    try
+    [Authorize]
+    public async Task<ActionResult<GuideDto>> GetById(Guid id)
     {
-        var guide = await _getByIdUseCase.Execute(id);
-        return Ok(guide);
+        try
+        {
+            var guide = await _getByIdUseCase.Execute(id);
+            return Ok(guide);
+        }
+        catch (Exception ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
     }
-    catch (Exception ex)
-    {
-        // On retourne 404 Not Found si le guide n'existe pas
-        return NotFound(new { message = ex.Message });
-    }
-}
 
     [HttpGet("user/{userId}")]
     [Authorize]
-public async Task<ActionResult<IEnumerable<GuideDto>>> GetByUser(Guid userId)
-{
-    try
+    public async Task<ActionResult<IEnumerable<GuideDto>>> GetByUser(Guid userId)
     {
-        var guides = await _getByUserUseCase.Execute(userId);
-        return Ok(guides);
+        try
+        {
+            var guides = await _getByUserUseCase.Execute(userId);
+            return Ok(guides);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
-    catch (Exception ex)
-    {
-        return BadRequest(new { message = ex.Message });
-    }
-}
 
     // cette partie du code est faite par IA vu la conplexité de la gestion des fichiers,
     //  elle gère l'upload du fichier PDF, la validation du fichier, 
     // et la création du guide en utilisant le use case approprié.
     // j'ai compris le code apres une longue lecture
     [HttpPost]
-    [Authorize(Roles = "coach")] 
+    [Authorize(Roles = "coach")]
     public async Task<ActionResult<GuideDto>> Create(
-        IFormFile pdfFile, 
-        [FromForm] Guid coachId, 
-        [FromForm] string title, 
-        [FromForm] string description, 
-        [FromForm] string category, 
+        IFormFile pdfFile,
+        [FromForm] Guid coachId,
+        [FromForm] string title,
+        [FromForm] string description,
+        [FromForm] string category,
         [FromForm] int price)
     {
         try
@@ -121,10 +123,10 @@ public async Task<ActionResult<IEnumerable<GuideDto>>> GetByUser(Guid userId)
 
             // Paramètres pour lire uniquement la première page en 150 DPI (Performance)
             var settings = new MagickReadSettings
-{                   
+            {
                 Density = new Density(150, 150),
-                FrameIndex = 0, 
-                FrameCount = 1  
+                FrameIndex = 0,
+                FrameCount = 1
             };
 
             // Lecture depuis le fichier PDF sauvegardé
@@ -157,8 +159,23 @@ public async Task<ActionResult<IEnumerable<GuideDto>>> GetByUser(Guid userId)
         }
     }
 
-    [HttpDelete("{id}")]
+    [HttpPut("{id}")]
     [Authorize(Roles = "coach")] 
+    public async Task<ActionResult<GuideDto>> Update(Guid id, [FromBody] UpdateGuideDto dto)
+    {
+        try
+        {
+            var result = await _updateUseCase.Execute(id, dto);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpDelete("{id}")]
+    [Authorize(Roles = "coach")]
     public async Task<IActionResult> Delete(Guid id)
     {
         try
