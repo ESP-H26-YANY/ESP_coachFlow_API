@@ -3,6 +3,7 @@ using CoachFlowApi.Application.UseCases.Guide.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ImageMagick;
+using System.Security.Claims;
 
 namespace CoachFlowApi.Api.Controllers;
 
@@ -89,7 +90,7 @@ public class GuideController : ControllerBase
     [Authorize(Roles = "coach")]
     public async Task<ActionResult<GuideDto>> Create(
         IFormFile pdfFile,
-        [FromForm] Guid coachId,
+        // <-- Plus de [FromForm] Guid userId ou coachId ici, le frontend n'envoie rien !
         [FromForm] string title,
         [FromForm] string description,
         [FromForm] string category,
@@ -97,6 +98,8 @@ public class GuideController : ControllerBase
     {
         try
         {
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;  
+            Guid currentUserId = Guid.Parse(userIdString);
             if (pdfFile == null || pdfFile.Length == 0)
                 return BadRequest("Le fichier PDF est requis.");
 
@@ -141,13 +144,13 @@ public class GuideController : ControllerBase
             // 3. Préparation du DTO avec les deux URLs
             var createDto = new CreateGuideDto
             {
-                CoachId = coachId,
+                UserId = currentUserId, // <-- Passage de l'ID extrait du Token au UseCase
                 Title = title,
                 Description = description,
                 Category = category,
                 Price = price,
                 LinkUrl = $"/uploads/guides/{pdfFileName}",
-                CoverUrl = $"/uploads/guides/{coverFileName}" // L'URL de la couverture générée
+                CoverUrl = $"/uploads/guides/{coverFileName}" 
             };
 
             var result = await _createUseCase.Execute(createDto);

@@ -12,6 +12,6 @@ public class CreateGuideValidator : AbstractValidator<CreateGuideDto>
         RuleFor(x => x.Category).NotEmpty().MaximumLength(20);
         RuleFor(x => x.LinkUrl).NotEmpty();
         RuleFor(x => x.Price).GreaterThanOrEqualTo(0);
-        RuleFor(x => x.CoachId).NotEmpty();
+        RuleFor(x => x.UserId).NotEmpty();
     }
 }

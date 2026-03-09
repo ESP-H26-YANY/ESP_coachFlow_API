@@ -5,4 +5,5 @@ namespace CoachFlowApi.Domain.Interfaces.Repositories;
 public interface ICoachRepository
 {
     Task<Coach> Add(Coach coach);
+    Task<Coach?> FindByUserId(Guid userId);
 }
