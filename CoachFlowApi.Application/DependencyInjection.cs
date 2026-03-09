@@ -22,6 +22,8 @@ public static class DependencyInjection
         services.AddScoped<IDeleteGuideUseCase, DeleteGuideUseCase>();
         services.AddScoped<IGetAllGuidesUseCase, GetAllGuidesUseCase>();
         services.AddScoped<IGetGuidesByUserUseCase, GetGuidesByUserUseCase>();
+        services.AddScoped<IGetGuideByIdUseCase, GetGuideByIdUseCase>();
+        services.AddScoped<IUpdateGuideUseCase, UpdateGuideUseCase>();
         
         return services;
     }

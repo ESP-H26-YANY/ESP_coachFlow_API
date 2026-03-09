@@ -8,5 +8,6 @@ public interface IGuideRepository
     Task<List<Guide>> GetAll(); 
     Task<List<Guide>> GetByUserId(Guid userId);
     Task<Guide> Add(Guide guide);
+    Task Update(Guide guide);
     Task Delete(Guid id);
 }

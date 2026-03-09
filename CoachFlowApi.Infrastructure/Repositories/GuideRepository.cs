@@ -40,6 +40,11 @@ public class GuideRepository : IGuideRepository
         await _context.SaveChangesAsync();
         return newGuide.Entity;
     }
+    public async Task Update(Guide guide)
+    {
+        _context.Guides.Update(guide);
+        await _context.SaveChangesAsync();
+    }
 
     public async Task Delete(Guid id)
     {
