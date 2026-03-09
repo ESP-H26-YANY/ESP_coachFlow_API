@@ -14,6 +14,11 @@ public class CoachConfiguration : IEntityTypeConfiguration<Coach>
         builder.Property(c => c.Specialization)
             .IsRequired()
             .HasMaxLength(40);
+        
+        builder.HasOne(c => c.User)
+            .WithOne()
+            .HasForeignKey<Coach>(c => c.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(c => c.Guides)
             .WithOne(g => g.Coach)

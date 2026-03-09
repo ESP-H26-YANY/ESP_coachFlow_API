@@ -54,3 +54,6 @@ appsettings.json
 logs/
 temp/
 tmp/
+
+
+CoachFlowApi/CoachFlowApi.Api/uploads

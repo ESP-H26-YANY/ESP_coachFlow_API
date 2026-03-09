@@ -10,21 +10,23 @@ public class Guide
     public bool IsBeginner { get; set; }
     public string LinkUrl { get; set; }
     public int Price { get; set; }
+    public string CoverUrl { get; set; }
 
     public Coach Coach { get; set; }
 
 
-    public Guide(Guid coachId, string title, string description, string category, string linkUrl, int price)
-    {
-        Id = Guid.NewGuid();
-        CoachId = coachId;
-        Title = title;
-        Description = description;
-        Category = category;
-        LinkUrl = linkUrl;
-        Price = price;
-        IsBeginner = true; 
-    }
+    public Guide(Guid coachId, string title, string description, string category, string linkUrl, string coverUrl, int price)
+{
+    Id = Guid.NewGuid();
+    CoachId = coachId;
+    Title = title;
+    Description = description;
+    Category = category;
+    LinkUrl = linkUrl;
+    CoverUrl = coverUrl; 
+    Price = price;       
+    IsBeginner = true; 
+}
 
     public Guide() { }
 }

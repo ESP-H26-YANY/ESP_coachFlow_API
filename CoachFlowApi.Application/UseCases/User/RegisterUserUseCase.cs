@@ -6,17 +6,20 @@ using FluentValidation.Results;
 using BCrypt.Net;
 
 using UserEntity = CoachFlowApi.Domain.Entities.User;
+using CoachEntity = CoachFlowApi.Domain.Entities.Coach;
 
 namespace CoachFlowApi.Application.UseCases.User;
 
 public class RegisterUserUseCase : IRegisterUserUseCase
 {
     private readonly IUserRepository _userRepository;
+    private readonly ICoachRepository _coachRepository; 
     private readonly IValidator<RegisterUserDto> _validator;
 
-    public RegisterUserUseCase(IUserRepository userRepository, IValidator<RegisterUserDto> validator)
+    public RegisterUserUseCase(IUserRepository userRepository, ICoachRepository coachRepository, IValidator<RegisterUserDto> validator)
     {
         _userRepository = userRepository;
+        _coachRepository = coachRepository;
         _validator = validator;
     }
 
@@ -41,10 +44,20 @@ public class RegisterUserUseCase : IRegisterUserUseCase
             dto.Email, 
             passwordHash, 
             dto.Name,
-            dto.Role
+            dto.Role 
         );
 
         var savedUser = await _userRepository.Add(user);
+
+        if (dto.Role == "coach")
+        {
+            var coach = new CoachEntity(
+                savedUser.Id, 
+                "Général" 
+            );
+            await _coachRepository.Add(coach);
+        }
+
         return new UserDto(savedUser);
     }
 }

@@ -10,6 +10,7 @@ Mise à jour des paquets et installation des outils de base :
 
 ```bash
 sudo apt update
+sudo apt install -y ghostscript
 sudo apt install -y wget apt-transport-https
 wget https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb
@@ -60,6 +61,13 @@ dotnet publish CoachFlowApi.Api -c Release -o publish
 
 ```json
 {
+  "Kestrel": {
+  "Endpoints": {
+    "Http": {
+      "Url": "http://*:5144"
+    }
+  }
+},
   "Jwt": {
     "Issuer": "CoachFlowApi",
     "Audience": "CoachFlowClient",
@@ -96,6 +104,10 @@ dotnet publish CoachFlowApi.Api/CoachFlowApi.Api.csproj -c Release -o ./publish
 # Déplacer les fichiers vers un dossier standard
 sudo mkdir -p /var/www/coachflow
 sudo cp -r ./publish/* /var/www/coachflow/
+
+# Pour donner la propriété du dossier au service web
+sudo chown -R www-data:www-data /var/www/coachflow/wwwroot
+sudo chmod -R 755 /var/www/coachflow/wwwroot
 
 # Donner les droits appropriés
 sudo chown -R www-data:www-data /var/www/coachflow

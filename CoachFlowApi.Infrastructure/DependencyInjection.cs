@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CoachFlowApi.Infrastructure;
 
-// copie du fichier du professeur avec modifications pour mariaDB
 public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(
@@ -23,10 +22,9 @@ public static class DependencyInjection
                 b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
 
          services.AddScoped<IUserRepository, UserRepository>();
-        // services.AddScoped<ICoachRepository, CoachRepository>();
-        // services.AddScoped<IGuideRepository, GuideRepository>();
-        // services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-        // services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+         services.AddScoped<IGuideRepository, GuideRepository>();
+         services.AddScoped<ICoachRepository, CoachRepository>();
+
 
         return services;
     }

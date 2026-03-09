@@ -20,9 +20,14 @@ public class GuideConfiguration : IEntityTypeConfiguration<Guide>
 
         builder.Property(g => g.Category)
             .HasMaxLength(20);
-            
+
         builder.Property(g => g.IsBeginner)
             .IsRequired();
+        builder.Property(g => g.LinkUrl)
+            .HasMaxLength(200);
+
+        builder.Property(g => g.CoverUrl)
+            .HasMaxLength(200);
 
         builder.Property(g => g.LinkUrl)
             .HasMaxLength(100);
