@@ -13,6 +13,7 @@ public class User
 
     public ICollection<Appointment> Appointments { get; set; }
     public ICollection<Purchase> Purchases { get; set; }
+    public virtual ICollection<SavedGuide> SavedGuides { get; set; } = new List<SavedGuide>();
 
     public User(string email, string password, string name, string role )
     {

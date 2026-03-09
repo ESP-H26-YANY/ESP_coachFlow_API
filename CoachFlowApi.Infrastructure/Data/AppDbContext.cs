@@ -15,6 +15,7 @@ public class AppDbContext : DbContext
     public DbSet<Guide> Guides { get; set; }
     public DbSet<Appointment> Appointments { get; set; }
     public DbSet<Purchase> Purchases { get; set; }
+    public DbSet<SavedGuide> SavedGuides { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

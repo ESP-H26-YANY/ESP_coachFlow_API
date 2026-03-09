@@ -14,6 +14,7 @@ public class Guide
 
     public Coach Coach { get; set; }
 
+    public virtual ICollection<SavedGuide> SavedGuides { get; set; } = new List<SavedGuide>();
 
     public Guide(Guid coachId, string title, string description, string category, string linkUrl, string coverUrl, int price)
 {

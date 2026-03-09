@@ -6,6 +6,8 @@ using CoachFlowApi.Application.UseCases.User;
 using CoachFlowApi.Application.UseCases.User.Interfaces;
 using CoachFlowApi.Application.UseCases.Guide;
 using CoachFlowApi.Application.UseCases.Guide.Interfaces;
+using CoachFlowApi.Application.UseCases.Library;
+using CoachFlowApi.Application.UseCases.Library.Interfaces;
 
 namespace CoachFlowApi.Application;
 
@@ -13,7 +15,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        
+
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
@@ -24,7 +26,10 @@ public static class DependencyInjection
         services.AddScoped<IGetGuidesByUserUseCase, GetGuidesByUserUseCase>();
         services.AddScoped<IGetGuideByIdUseCase, GetGuideByIdUseCase>();
         services.AddScoped<IUpdateGuideUseCase, UpdateGuideUseCase>();
-        
+        services.AddScoped<IAddToLibraryUseCase, AddToLibraryUseCase>();
+        services.AddScoped<IRemoveFromLibraryUseCase, RemoveFromLibraryUseCase>();
+        services.AddScoped<IGetMyLibraryUseCase, GetMyLibraryUseCase>();
+
         return services;
     }
 }

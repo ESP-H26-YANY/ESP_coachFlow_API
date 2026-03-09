@@ -6,19 +6,18 @@ namespace CoachFlowApi.Application.UseCases.Guide;
 public class DeleteGuideUseCase : IDeleteGuideUseCase
 {
     private readonly IGuideRepository _guideRepository;
+    private readonly ILibraryRepository _libraryRepository; 
 
-    public DeleteGuideUseCase(IGuideRepository guideRepository)
+    public DeleteGuideUseCase(IGuideRepository guideRepository, ILibraryRepository libraryRepository)
     {
         _guideRepository = guideRepository;
+        _libraryRepository = libraryRepository;
     }
 
     public async Task Execute(Guid id)
     {
-        var guide = await _guideRepository.FindById(id);
-        if (guide == null)
-        {
-            throw new Exception("Guide pas trouvé"); 
-        }
+        if (await _libraryRepository.IsGuideSavedByAnyone(id))
+            throw new Exception("Impossible de supprimer ce guide : il a été ajouté à la bibliothèque d'un ou plusieurs users.");
 
         await _guideRepository.Delete(id);
     }
