@@ -86,7 +86,7 @@ public class GuideController : ControllerBase
     //  elle gère l'upload du fichier PDF, la validation du fichier, 
     // et la création du guide en utilisant le use case approprié.
     // j'ai compris le code apres une longue lecture
-    [HttpPost]
+   [HttpPost]
     [Authorize(Roles = "coach")]
     public async Task<ActionResult<GuideDto>> Create(
         IFormFile pdfFile,
@@ -100,13 +100,15 @@ public class GuideController : ControllerBase
         {
             var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;  
             Guid currentUserId = Guid.Parse(userIdString);
+            
             if (pdfFile == null || pdfFile.Length == 0)
                 return BadRequest("Le fichier PDF est requis.");
 
             if (Path.GetExtension(pdfFile.FileName).ToLower() != ".pdf")
                 return BadRequest("Seuls les fichiers PDF sont autorisés.");
 
-            string uploadsFolder = Path.Combine(_environment.WebRootPath ?? _environment.ContentRootPath, "uploads", "guides");
+            string uploadsFolder = "/var/www/coachflow_data/uploads/guides";
+            
             if (!Directory.Exists(uploadsFolder))
                 Directory.CreateDirectory(uploadsFolder);
 
@@ -149,7 +151,7 @@ public class GuideController : ControllerBase
                 Description = description,
                 Category = category,
                 Price = price,
-                LinkUrl = $"/uploads/guides/{pdfFileName}",
+                LinkUrl = $"/uploads/guides/{pdfFileName}", // Sera résolu grâce au mapping dans Program.cs
                 CoverUrl = $"/uploads/guides/{coverFileName}" 
             };
 
