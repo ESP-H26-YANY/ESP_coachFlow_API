@@ -64,4 +64,26 @@ public class LibraryController : ControllerBase
         }
         catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
     }
+
+    [HttpPost("purchase/{guideId}")]
+    [Authorize(Roles = "user")]
+    public async Task<IActionResult> PurchaseGuide(
+        Guid guideId, 
+        [FromServices] IPurchaseGuideUseCase purchaseUseCase) 
+    {
+        try
+        {
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdString)) throw new UnauthorizedAccessException("Utilisateur non identifié.");
+            var currentUserId = Guid.Parse(userIdString!);
+
+            await purchaseUseCase.Execute(currentUserId, guideId);
+            
+            return Ok(new { message = "Achat réussi ! Le guide a été ajouté à votre bibliothèque et votre Wallet a été débité." });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
 }
