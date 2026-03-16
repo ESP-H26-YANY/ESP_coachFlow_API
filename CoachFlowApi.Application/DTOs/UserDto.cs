@@ -8,6 +8,8 @@ public class UserDto
     public string Name { get; set; }
     public string Email { get; set; }
     public string Role { get; set; }
+    public int Wallet { get; set; }
+
 
     public UserDto() { }
 
@@ -17,5 +19,6 @@ public class UserDto
         Name = user.Name;
         Email = user.Email;
         Role = user.Role;
+        Wallet = user.Wallet;
     }
 }
