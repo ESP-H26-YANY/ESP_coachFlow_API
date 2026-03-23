@@ -32,6 +32,8 @@ public static class DependencyInjection
         services.AddScoped<IPurchaseGuideUseCase, PurchaseGuideUseCase>();
         services.AddScoped<IGetPurchasedGuidesUseCase, GetPurchasedGuidesUseCase>();
         services.AddScoped<IDownloadGuideUseCase, DownloadGuideUseCase>();
+        services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
+        services.AddScoped<ITopUpWalletUseCase, TopUpWalletUseCase>();
 
         return services;
     }
