@@ -13,9 +13,9 @@ public class GetAllGuidesUseCase : IGetAllGuidesUseCase
         _guideRepository = guideRepository;
     }
 
-    public async Task<IList<GuideDto>> Execute()
+    public async Task<IEnumerable<PublicGuideDto>> Execute()
     {
         var guides = await _guideRepository.GetAll();
-        return guides.Select(x => new GuideDto(x)).ToList();
+        return guides.Select(g => new PublicGuideDto(g)).ToList(); 
     }
 }
