@@ -86,4 +86,15 @@ public class LibraryController : ControllerBase
             return BadRequest(new { message = ex.Message });
         }
     }
+
+    [HttpGet("purchased")]
+    public async Task<ActionResult<IEnumerable<PurchasedGuideDto>>> GetPurchasedGuides([FromServices] IGetPurchasedGuidesUseCase getPurchasedUseCase)
+    {
+        try
+        {
+            var guides = await getPurchasedUseCase.Execute(GetCurrentUserId());
+            return Ok(guides);
+        }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
 }

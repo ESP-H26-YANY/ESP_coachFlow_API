@@ -44,4 +44,12 @@ public class LibraryRepository : ILibraryRepository
     {
         return await _context.SavedGuides.AnyAsync(sg => sg.GuideId == guideId);
     }
+    public async Task<List<Purchase>> GetPurchasesByUser(Guid userId)
+    {
+        return await _context.Purchases
+            .Include(p => p.Guide)
+            .Where(p => p.UserId == userId)
+            .OrderByDescending(p => p.DatePurchase)
+            .ToListAsync();
+    }
 }

@@ -30,6 +30,7 @@ public static class DependencyInjection
         services.AddScoped<IRemoveFromLibraryUseCase, RemoveFromLibraryUseCase>();
         services.AddScoped<IGetMyLibraryUseCase, GetMyLibraryUseCase>();
         services.AddScoped<IPurchaseGuideUseCase, PurchaseGuideUseCase>();
+        services.AddScoped<IGetPurchasedGuidesUseCase, GetPurchasedGuidesUseCase>();
 
         return services;
     }
