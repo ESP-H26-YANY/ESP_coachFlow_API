@@ -193,4 +193,26 @@ public class GuideController : ControllerBase
             return NotFound(new { message = ex.Message });
         }
     }
+
+    [HttpGet("{id}/download")]
+    [Authorize] 
+    public async Task<IActionResult> DownloadPdf(Guid id, [FromServices] IDownloadGuideUseCase downloadUseCase)
+    {
+        try
+        {
+            var userIdString = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var role = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+            var currentUserId = Guid.Parse(userIdString!);
+
+            var (filePath, fileName) = await downloadUseCase.Execute(currentUserId, role, id);
+
+            var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            // Renvoie le fichier directement dans la réponse HTTP
+            return File(stream, "application/pdf", fileName); 
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
 }
