@@ -39,7 +39,7 @@ public class GuideController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    public async Task<ActionResult<IEnumerable<GuideDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<PublicGuideDto>>> GetAll()
     {
         try
         {
@@ -86,21 +86,21 @@ public class GuideController : ControllerBase
     //  elle gère l'upload du fichier PDF, la validation du fichier, 
     // et la création du guide en utilisant le use case approprié.
     // j'ai compris le code apres une longue lecture
-   [HttpPost]
+    [HttpPost]
     [Authorize(Roles = "coach")]
     public async Task<ActionResult<GuideDto>> Create(
-        IFormFile pdfFile,
-        // <-- Plus de [FromForm] Guid userId ou coachId ici, le frontend n'envoie rien !
-        [FromForm] string title,
-        [FromForm] string description,
-        [FromForm] string category,
-        [FromForm] int price)
+         IFormFile pdfFile,
+         // <-- Plus de [FromForm] Guid userId ou coachId ici, le frontend n'envoie rien !
+         [FromForm] string title,
+         [FromForm] string description,
+         [FromForm] string category,
+         [FromForm] int price)
     {
         try
         {
-            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;  
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Guid currentUserId = Guid.Parse(userIdString);
-            
+
             if (pdfFile == null || pdfFile.Length == 0)
                 return BadRequest("Le fichier PDF est requis.");
 
@@ -108,7 +108,7 @@ public class GuideController : ControllerBase
                 return BadRequest("Seuls les fichiers PDF sont autorisés.");
 
             string uploadsFolder = "/var/www/coachflow_data/uploads/guides";
-            
+
             if (!Directory.Exists(uploadsFolder))
                 Directory.CreateDirectory(uploadsFolder);
 
@@ -152,7 +152,7 @@ public class GuideController : ControllerBase
                 Category = category,
                 Price = price,
                 LinkUrl = $"/uploads/guides/{pdfFileName}", // Sera résolu grâce au mapping dans Program.cs
-                CoverUrl = $"/uploads/guides/{coverFileName}" 
+                CoverUrl = $"/uploads/guides/{coverFileName}"
             };
 
             var result = await _createUseCase.Execute(createDto);
@@ -165,7 +165,7 @@ public class GuideController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(Roles = "coach")] 
+    [Authorize(Roles = "coach")]
     public async Task<ActionResult<GuideDto>> Update(Guid id, [FromBody] UpdateGuideDto dto)
     {
         try
