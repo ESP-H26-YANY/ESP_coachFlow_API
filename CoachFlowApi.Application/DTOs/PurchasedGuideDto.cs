@@ -21,7 +21,7 @@ public class PurchasedGuideDto
         Category = purchase.Guide.Category;
         Price = purchase.Guide.Price;
         CoverUrl = purchase.Guide.CoverUrl;
-        LinkUrl = purchase.Guide.LinkUrl;
+        LinkUrl = $"/api/Guide/{purchase.GuideId}/download";
         PurchasedAt = purchase.DatePurchase;
     }
 }

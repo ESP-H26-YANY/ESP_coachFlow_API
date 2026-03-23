@@ -22,7 +22,7 @@ public class GuideDto
         Title = guide.Title;
         Description = guide.Description;
         Category = guide.Category;
-        LinkUrl = guide.LinkUrl;
+        LinkUrl = $"/api/Guide/{guide.Id}/download";
         CoverUrl = guide.CoverUrl;
         Price = guide.Price;
     }
