@@ -30,7 +30,7 @@ Le projet suit les principes de la **Clean Architecture**, divisé en 4 couches 
 3. **`CoachFlowApi.Infrastructure`** : Gère l'accès aux données. Contient la configuration d'Entity Framework (`AppDbContext`), l'implémentation des repositories et les migrations de la base de données.
 4. **`CoachFlowApi.Api`** : La couche de présentation. Contient les contrôleurs REST (`AuthController`, `GuideController`, `LibraryController`), l'injection de dépendances et la configuration de l'application (`Program.cs`).
 
-## ⚙️ Prérequis pour le développement
+##  Prérequis pour le développement
 Pour faire tourner ce projet en local, vous avez besoin de :
 * [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 * Un serveur MariaDB en cours d'exécution.
