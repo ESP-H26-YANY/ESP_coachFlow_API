@@ -8,6 +8,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Logging;
 
 using UserEntity = CoachFlowApi.Domain.Entities.User;
 
@@ -18,12 +19,14 @@ public class LoginUseCase : ILoginUseCase
     private readonly IUserRepository _userRepository;
     private readonly IValidator<LoginDto> _validator;
     private readonly IConfiguration _configuration;
+    private readonly ILogger<LoginUseCase> _logger;
 
-    public LoginUseCase(IUserRepository userRepository, IValidator<LoginDto> validator, IConfiguration configuration)
+    public LoginUseCase(IUserRepository userRepository, IValidator<LoginDto> validator, IConfiguration configuration, ILogger<LoginUseCase> logger)
     {
         _userRepository = userRepository;
         _validator = validator;
         _configuration = configuration;
+        _logger = logger;
     }
 
     public async Task<AuthDto> Execute(LoginDto dto)
@@ -31,6 +34,7 @@ public class LoginUseCase : ILoginUseCase
         ValidationResult validationResult = await _validator.ValidateAsync(dto);
         if (!validationResult.IsValid)
         {
+            _logger.LogWarning("Échec de validation pour la tentative de connexion de {Email}.", dto.Email);
             throw new ValidationException(validationResult.Errors);
         }
 
@@ -38,10 +42,12 @@ public class LoginUseCase : ILoginUseCase
         
         if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
         {
+            _logger.LogWarning("Tentative de connexion échouée : Identifiants incorrects pour {Email}.", dto.Email);
             throw new Exception("Email ou mot de passe incorrect.");
         }
 
         var token = GenerateJwtToken(user);
+        _logger.LogInformation("Connexion réussie pour l'utilisateur {UserId} ({Role}).", user.Id, user.Role);
 
         return new AuthDto
         {
