@@ -2,6 +2,8 @@ using CoachFlowApi.Domain.Entities;
 using CoachFlowApi.Domain.Interfaces.Repositories;
 using CoachFlowApi.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using CoachFlowApi.Domain.Models;
+
 
 namespace CoachFlowApi.Infrastructure.Repositories;
 
@@ -26,7 +28,24 @@ public class LibraryRepository : ILibraryRepository
         await _context.SaveChangesAsync();
     }
 
-// un peu compliqué les sg=>
+    // IA, car trop compliqué pour moi
+    // On cherche dans la table des SavedGuides une entrée qui correspond à l'utilisateur et au guide, 
+    // si on en trouve une, on la retourne, sinon on retourne null
+    public async Task<CoachEngagementStats> GetEngagementStatsAsync(Guid coachId)
+    {
+        var baseQuery = _context.SavedGuides.Where(s => s.Guide.CoachId == coachId);
+        int totalWishlisted = await baseQuery.CountAsync();
+
+        var topGuide = await baseQuery
+            .GroupBy(s => new { s.Guide.Id, s.Guide.Title })
+            .Select(g => new { g.Key.Id, g.Key.Title, Count = g.Count() })
+            .OrderByDescending(x => x.Count)
+            .FirstOrDefaultAsync();
+
+        return new CoachEngagementStats(totalWishlisted, topGuide?.Id, topGuide?.Title ?? "Aucun");
+    }
+
+    // un peu compliqué les sg=>
     public async Task<SavedGuide?> Get(Guid userId, Guid guideId)
     {
         return await _context.SavedGuides.FirstOrDefaultAsync(sg => sg.UserId == userId && sg.GuideId == guideId);

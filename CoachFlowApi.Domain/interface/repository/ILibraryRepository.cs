@@ -1,4 +1,5 @@
 using CoachFlowApi.Domain.Entities;
+using CoachFlowApi.Domain.Models;
 
 namespace CoachFlowApi.Domain.Interfaces.Repositories;
 
@@ -11,4 +12,5 @@ public interface ILibraryRepository
     Task<bool> IsGuideSavedByAnyone(Guid guideId);
     Task<List<Purchase>> GetPurchasesByUser(Guid userId);
     Task<List<SavedGuide>> GetSavedGuidesByCoachIdAsync(Guid coachId);
+    Task<CoachEngagementStats> GetEngagementStatsAsync(Guid coachId);
 }

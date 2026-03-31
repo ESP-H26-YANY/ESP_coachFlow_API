@@ -3,6 +3,7 @@ using CoachFlowApi.Domain.Interfaces.Repositories;
 using CoachFlowApi.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using CoachFlowApi.Domain.Models;
 
 namespace CoachFlowApi.Infrastructure.Repositories;
 
@@ -54,5 +55,9 @@ public class GuideRepository : IGuideRepository
             _context.Guides.Remove(guide);
             await _context.SaveChangesAsync();
         }
+    }
+    public async Task<int> CountByCoachAsync(Guid coachId)
+    {
+        return await _context.Guides.CountAsync(g => g.CoachId == coachId);
     }
 }

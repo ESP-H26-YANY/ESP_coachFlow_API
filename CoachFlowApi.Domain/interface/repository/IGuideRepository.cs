@@ -1,5 +1,6 @@
 using CoachFlowApi.Domain.Entities;
 
+
 namespace CoachFlowApi.Domain.Interfaces.Repositories;
 
 public interface IGuideRepository
@@ -10,4 +11,5 @@ public interface IGuideRepository
     Task<Guide> Add(Guide guide);
     Task Update(Guide guide);
     Task Delete(Guid id);
+    Task<int> CountByCoachAsync(Guid coachId);
 }
