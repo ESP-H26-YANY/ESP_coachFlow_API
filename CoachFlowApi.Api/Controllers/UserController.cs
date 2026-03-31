@@ -37,13 +37,13 @@ public class UserController : ControllerBase
         catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
     }
 
-    [HttpPost("points")]
-    public async Task<IActionResult> TopUp([FromBody] TopUpDto dto)
+[HttpPost("claim-reward")]
+    public async Task<IActionResult> ClaimReward()
     {
         try
         {
-            var newBalance = await _topUpUseCase.Execute(GetCurrentUserId(), dto.Amount);
-            return Ok(new { message = "Points ajoutés avec succès.", newBalance = newBalance });
+            var newBalance = await _topUpUseCase.Execute(GetCurrentUserId());
+            return Ok(new { message = "50 points ajoutés avec succès.", newBalance = newBalance });
         }
         catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
     }

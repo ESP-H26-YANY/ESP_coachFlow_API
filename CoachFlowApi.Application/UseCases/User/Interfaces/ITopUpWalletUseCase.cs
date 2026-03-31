@@ -2,5 +2,5 @@ namespace CoachFlowApi.Application.UseCases.User.Interfaces;
 
 public interface ITopUpWalletUseCase
 {
-    Task<int> Execute(Guid userId, int amount);
+    Task<int> Execute(Guid userId);
 }

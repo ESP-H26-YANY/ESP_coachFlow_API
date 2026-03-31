@@ -8,6 +8,7 @@ public class User
     public string Name { get; set; }
     public string Role { get; set; }
     public int Wallet { get; set; }
+    public DateTime? LastClaimDate { get; set; }
     public DateTime CreatedAt { get; set; }
 
 
