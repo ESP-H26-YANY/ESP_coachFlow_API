@@ -10,4 +10,5 @@ public interface ILibraryRepository
     Task<List<SavedGuide>> GetByUser(Guid userId);
     Task<bool> IsGuideSavedByAnyone(Guid guideId);
     Task<List<Purchase>> GetPurchasesByUser(Guid userId);
+    Task<List<SavedGuide>> GetSavedGuidesByCoachIdAsync(Guid coachId);
 }

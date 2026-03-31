@@ -13,6 +13,13 @@ public class PurchaseRepository : IPurchaseRepository
     {
         _context = context;
     }
+    public async Task<List<Purchase>> GetPurchasesByCoachIdAsync(Guid coachId)
+    {
+        return await _context.Purchases
+            .Include(p => p.Guide)
+            .Where(p => p.Guide.CoachId == coachId)
+            .ToListAsync();
+    }
 
    public async Task BuyGuideAsync(Guid userId, Guid guideId)
     {

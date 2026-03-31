@@ -8,6 +8,8 @@ using CoachFlowApi.Application.UseCases.Guide;
 using CoachFlowApi.Application.UseCases.Guide.Interfaces;
 using CoachFlowApi.Application.UseCases.Library;
 using CoachFlowApi.Application.UseCases.Library.Interfaces;
+using CoachFlowApi.Application.UseCases.Coach;
+using CoachFlowApi.Application.UseCases.Coach.Interfaces;
 
 namespace CoachFlowApi.Application;
 
@@ -34,6 +36,7 @@ public static class DependencyInjection
         services.AddScoped<IDownloadGuideUseCase, DownloadGuideUseCase>();
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
         services.AddScoped<ITopUpWalletUseCase, TopUpWalletUseCase>();
+        services.AddScoped<IGetCoachDashboardStatsUseCase, GetCoachDashboardStatsUseCase>();
 
         return services;
     }

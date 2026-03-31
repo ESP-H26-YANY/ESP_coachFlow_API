@@ -52,4 +52,11 @@ public class LibraryRepository : ILibraryRepository
             .OrderByDescending(p => p.DatePurchase)
             .ToListAsync();
     }
+    public async Task<List<SavedGuide>> GetSavedGuidesByCoachIdAsync(Guid coachId)
+    {
+        return await _context.SavedGuides
+            .Include(s => s.Guide)
+            .Where(s => s.Guide.CoachId == coachId)
+            .ToListAsync();
+    }
 }
