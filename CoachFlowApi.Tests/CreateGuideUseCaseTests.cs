@@ -65,50 +65,41 @@ public class CreateGuideUseCaseTests
         _guideRepositoryMock.Setup(r => r.Add(It.IsAny<Guide>()))
             .ReturnsAsync((Guide g) => g); 
 
-        // Act
         var result = await _useCase.Execute(dto);
 
-        // Assert
         Assert.NotNull(result);
         Assert.Equal(dto.Title, result.Title);
         Assert.Equal(coachId, result.CoachId);
 
-        // Vérifier que le guide a bien été envoyé pour sauvegarde
         _guideRepositoryMock.Verify(r => r.Add(It.Is<Guide>(g => g.Title == "Guide Musculation")), Times.Once);
     }
 
     [Fact]
     public async Task Execute_ShouldThrowException_WhenUserIsNotACoach()
     {
-        // Arrange
         var dto = new CreateGuideDto { UserId = Guid.NewGuid() };
         
         _validatorMock.Setup(v => v.ValidateAsync(dto, default))
             .ReturnsAsync(new ValidationResult());
 
-        // Simuler l'absence de profil coach, on dit ce qu'on veut avoir donc ici "NULL"
         _coachRepositoryMock.Setup(r => r.FindByUserId(dto.UserId))
             .ReturnsAsync((Coach?)null);
 
-        // Résultat 
         var exception = await Assert.ThrowsAsync<Exception>(() => _useCase.Execute(dto));
         Assert.Equal("Aucun profil de coach n'est associé à cet utilisateur.", exception.Message);
         
-        // S'assurer que le système n'a jamais tenté de sauvegarder un guide
         _guideRepositoryMock.Verify(r => r.Add(It.IsAny<Guide>()), Times.Never);
     }
 
     [Fact]
     public async Task Execute_ShouldThrowValidationException_WhenDataIsInvalid()
     {
-        // Arrange
         var dto = new CreateGuideDto(); // DTO vide et invalide
         var validationFailures = new List<ValidationFailure> { new ValidationFailure("Title", "Titre requis") };
         
         _validatorMock.Setup(v => v.ValidateAsync(dto, default))
             .ReturnsAsync(new ValidationResult(validationFailures));
 
-        // Act & Assert
         await Assert.ThrowsAsync<ValidationException>(() => _useCase.Execute(dto));
         
         // S'assurer qu'on ne sollicite pas la base de données si la validation échoue

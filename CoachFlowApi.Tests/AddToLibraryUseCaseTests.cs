@@ -62,19 +62,15 @@ public class AddToLibraryUseCaseTests
     [Fact]
     public async Task Execute_ShouldThrowException_WhenGuideDoesNotExist()
     {
-        // Arrange
         var userId = Guid.NewGuid();
         var guideId = Guid.NewGuid();
 
-        // Simule un guide introuvable
         _guideRepositoryMock.Setup(r => r.FindById(guideId)).ReturnsAsync((Guide?)null);
 
-        // Act & Assert
         var exception = await Assert.ThrowsAsync<Exception>(() => _useCase.Execute(userId, guideId));
         
         Assert.Equal("Guide introuvable.", exception.Message);
         
-        // Sécurité : Optimisation, on ne consulte même pas la bibliothèque si le guide n'existe pas
         _libraryRepositoryMock.Verify(r => r.Get(It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Never);
         _libraryRepositoryMock.Verify(r => r.Add(It.IsAny<SavedGuide>()), Times.Never);
     }

@@ -44,7 +44,7 @@ public class PurchaseGuideUseCaseTests
         var guideId = Guid.NewGuid();
         var expectedException = new Exception("Solde insuffisant pour cet achat.");
 
-        // Simule un rejet de la base de données (ex: procédure stockée qui échoue)
+        // Simule un rejet de la base de données (
         _purchaseRepositoryMock
             .Setup(r => r.BuyGuideAsync(userId, guideId))
             .ThrowsAsync(expectedException);

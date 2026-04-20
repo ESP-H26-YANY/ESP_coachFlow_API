@@ -26,7 +26,6 @@ public class TopUpWalletUseCaseTests
     [Fact]
     public async Task Execute_ShouldAdd50Points_WhenClaimIsValid()
     {
-        // Arrange
         var userId = Guid.NewGuid();
         var user = new User("test@test.com", "hash_password", "Test User", "user")
         {
@@ -37,10 +36,8 @@ public class TopUpWalletUseCaseTests
 
         _userRepositoryMock.Setup(r => r.FindById(userId)).ReturnsAsync(user);
 
-        // Act
         var newBalance = await _useCase.Execute(userId);
 
-        // Assert
         Assert.Equal(150, newBalance);
         _userRepositoryMock.Verify(r => r.Update(It.Is<User>(u => u.Wallet == 150)), Times.Once);
     }
@@ -48,7 +45,6 @@ public class TopUpWalletUseCaseTests
     [Fact]
     public async Task Execute_ShouldThrowException_WhenClaimedToday()
     {
-        // Arrange
         var userId = Guid.NewGuid();
         var user = new User("test@test.com", "hash_password", "Test User", "user")
         {
@@ -59,7 +55,6 @@ public class TopUpWalletUseCaseTests
 
         _userRepositoryMock.Setup(r => r.FindById(userId)).ReturnsAsync(user);
 
-        // Act & Assert
         var exception = await Assert.ThrowsAsync<Exception>(() => _useCase.Execute(userId));
         Assert.Equal("Vous avez déjà réclamé votre récompense aujourd'hui. Revenez demain !", exception.Message);
     }
