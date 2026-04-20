@@ -64,6 +64,6 @@ ESP_coachFlow_API/
 
 Pour les instructions de mise en production (Serveur Linux, PM2), veuillez consulter le fichier DEPLOYMENT.md
 
-Modifiez le fichier CoachFlowApi.Api/appsettings.json pour y insérer vos identifiants MySQL/MariaDB et votre clé secrète JWT.
+Modifiez le fichier **CoachFlowApi.Api/appsettings.json** pour y insérer vos identifiants MariaDB et votre clé secrète JWT.
 
-# Auteur : **Yany Boudedja**
+**Auteur : Yany Boudedja**

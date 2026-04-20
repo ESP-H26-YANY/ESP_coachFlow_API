@@ -1,5 +1,6 @@
 ## Installation des dépendances système
-installer, configurer et lancer l'API CoachFlow sur un serveur Linux (Ubuntu) vierge. L'API tournera en arrière-plan via PM2. 
+Installer, configurer et lancer l'API CoachFlow sur un serveur Linux (Ubuntu) vierge. 
+L'API tournera en arrière-plan via PM2. 
 La base de données est mariaDB.
 
 ## Prérequis
