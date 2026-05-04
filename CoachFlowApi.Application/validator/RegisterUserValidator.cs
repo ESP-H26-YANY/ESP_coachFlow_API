@@ -18,9 +18,13 @@ public class RegisterUserValidator : AbstractValidator<RegisterUserDto>
 
         RuleFor(x => x.Password)
             .NotEmpty()
-            .MinimumLength(6)
-            .MaximumLength(100);
-        
+            .MinimumLength(8)
+            .MaximumLength(100)
+            .Matches(@"[A-Z]").WithMessage("Au moins une majuscule requise")
+            .Matches(@"[a-z]").WithMessage("Au moins une minuscule requise")
+            .Matches(@"[0-9]").WithMessage("Au moins un chiffre requis")
+            .Matches(@"[\W_]").WithMessage("Au moins un caractère spécial requis");
+
         RuleFor(x => x.Role)
             .NotEmpty()
             .Must(role => role == "user" || role == "coach")

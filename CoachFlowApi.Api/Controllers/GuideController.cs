@@ -83,14 +83,13 @@ public class GuideController : ControllerBase
     }
 
     // cette partie du code est faite par IA vu la conplexité de la gestion des fichiers,
-    //  elle gère l'upload du fichier PDF, la validation du fichier, 
+    // elle gère l'upload du fichier PDF, la validation du fichier, 
     // et la création du guide en utilisant le use case approprié.
     // j'ai compris le code apres une longue lecture
     [HttpPost]
     [Authorize(Roles = "coach")]
     public async Task<ActionResult<GuideDto>> Create(
          IFormFile pdfFile,
-         // <-- Plus de [FromForm] Guid userId ou coachId ici, le frontend n'envoie rien !
          [FromForm] string title,
          [FromForm] string description,
          [FromForm] string category,
@@ -146,7 +145,7 @@ public class GuideController : ControllerBase
             // 3. Préparation du DTO avec les deux URLs
             var createDto = new CreateGuideDto
             {
-                UserId = currentUserId, // <-- Passage de l'ID extrait du Token au UseCase
+                UserId = currentUserId, 
                 Title = title,
                 Description = description,
                 Category = category,
@@ -200,8 +199,8 @@ public class GuideController : ControllerBase
     {
         try
         {
-            var userIdString = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            var role = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
             var currentUserId = Guid.Parse(userIdString!);
 
             var (filePath, fileName) = await downloadUseCase.Execute(currentUserId, role, id);

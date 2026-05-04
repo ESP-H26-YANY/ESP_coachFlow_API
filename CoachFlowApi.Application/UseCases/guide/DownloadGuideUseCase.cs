@@ -35,13 +35,13 @@ public class DownloadGuideUseCase : IDownloadGuideUseCase
         }
 
         // 2. RÉCUPÉRATION DU FICHIER PHYSIQUE
-        // Ton DB contient le chemin relatif (ex: /uploads/guides/fichier.pdf), on extrait juste le nom
+        // DB contient le chemin relatif (ex: /uploads/guides/fichier.pdf), on extrait juste le nom
         string fileName = Path.GetFileName(guide.LinkUrl); 
         string filePath = Path.Combine("/var/www/coachflow_data/uploads/guides", fileName);
 
         if (!File.Exists(filePath)) 
             throw new Exception("Le fichier physique est introuvable sur le serveur.");
 
-        return (filePath, $"{guide.Title}.pdf"); // On force le nom du fichier au titre du guide
+        return (filePath, $"{guide.Title}.pdf"); 
     }
 }
